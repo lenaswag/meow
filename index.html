@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--
+W6 Sample 06: Click the Image to Play
+이번 단계: 그림을 버튼 안에 넣고 클릭하면 고양이에 관한 음원이 재생되게 합니다.
+사용법: 전체 복사 → 새 메모장 → assets 폴더 옆에 index.html로 저장.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Click the Cat to Play</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    button, select {
+      font-size: 18px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      max-width: 100%;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+    }
+
+    figure {
+      margin: 16px 0;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #1463ab;
+      outline-offset: 4px;
+    }
+
+    .note {
+      color: #465363;
+      font-size: 15px;
+    }
+
+    .picture-button {
+      display: block;
+      padding: 0;
+      border: 2px solid #566e55;
+      border-radius: 14px;
+      background: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Click the Cat to Play</h1>
+
+  <p>Click the picture to hear about the cat.</p>
+
+  <!-- 고양이 이미지를 클릭하면 음원이 재생됩니다. -->
+  <button
+    class="picture-button"
+    onclick="playSound()"
+    aria-label="Play the cat description"
+  >
+    <img
+      src="assets/images/picture_03.png"
+      alt="A cute cat looking at the camera."
+    >
+  </button>
+
+  <!-- 고양이 설명 음원 -->
+  <audio
+    id="sound"
+    preload="metadata"
+    src="assets/audio/sound_03.wav"
+  ></audio>
+
+  <p>
+    <button onclick="stopSound()">Stop Sound</button>
+  </p>
+
+  <p class="note">
+    Transcript: This is a cute cat. It has soft fur and bright eyes.
+  </p>
+
+  <p id="status" class="note" role="status"></p>
+
+  <script>
+    const sound = document.getElementById("sound");
+
+    function playSound() {
+      sound.currentTime = 0;
+
+      document.getElementById("status").textContent = "";
+
+      sound.play().catch(function () {
+        document.getElementById("status").textContent =
+          "Audio could not play. Check the assets folder and try again.";
+      });
+    }
+
+    function stopSound() {
+      sound.pause();
+      sound.currentTime = 0;
+    }
+  </script>
+
+</body>
+</html>
